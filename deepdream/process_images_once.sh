@@ -19,6 +19,8 @@ do
 	echo "Error Code is" ${ERROR_CODE}
 	cp output.jpg outputs/${f}
 	rm output.jpg
+	cp output.gif "outputs/`basename ${f} .jpg`.gif"
+	rm output.gif
 	echo "Just created" outputs/${f}
     fi
 done

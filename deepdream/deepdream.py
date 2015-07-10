@@ -106,6 +106,7 @@ if width > maxwidth:
     hsize = int((float(img.size[1])*float(wpercent)))
     img = img.resize((maxwidth,hsize), PIL.Image.ANTIALIAS)
 
+img_original = img.copy()
 img = np.float32(img)
 
 frame = img
@@ -115,7 +116,12 @@ frame = deepdream(net, frame, end=json_data['layer'])
 #frame = deepdream(net, img, end='inception_3b/5x5_reduce')
 #frame = deepdream(net, img, end='conv2/3x3')
 
-PIL.Image.fromarray(np.uint8(frame)).save("output.jpg")
+out = PIL.Image.fromarray(np.uint8(frame))
+out.save("output.jpg")
+
+from gif import make_gif_from_pil_images
+
+make_gif_from_pil_images(img_original, out, 'output.gif')
 
 #h, w = frame.shape[:2]
 #s = 0.05 # scale coefficient
